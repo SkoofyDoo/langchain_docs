@@ -1,0 +1,34 @@
+[ORIGINAL_PROJECT_NAME]
+Copyright [ORIGINAL_YEAR] [ORIGINAL_AUTHOR]
+
+This product includes software developed in / derived from [ORIGINAL_PROJECT_NAME]
+([ORIGINAL_REPO_URL]), licensed under the Apache License, Version 2.0.
+
+You may obtain a copy of the License at:
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+This distribution includes unmodified and/or modified files from that original
+work. The original Work remains under the Apache License, Version 2.0.
+Copyright notices and attribution from the original Work are retained as
+required by Apache License 2.0, Section 4.
+
+--------------------------------------------------------------------------
+
+Additional notice for subsequent modifications to this repository
+([MY_REPO_NAME]):
+
+Copyright 2026 Evgeny Kvest (GitHub: SkoofyDoo)
+
+Modifications and additions by Evgeny Kvest include, without limitation:
+local Chroma persistence, Streamlit chat UI with source attribution,
+environment-based configuration, and related reliability/documentation work
+for portfolio use.
+
+These modifications are provided under the Apache License, Version 2.0,
+unless a specific file states otherwise.
+
+This project is an independent derivative / adaptation. It is not affiliated
+with, sponsored by, or endorsed by the original author(s), course provider(s),
+or trademark holders related to the original Work, except for the copyright
+and license attribution required by Apache License 2.0.

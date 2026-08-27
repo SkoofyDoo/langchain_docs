@@ -1,10 +1,8 @@
 from __future__  import annotations
 
 import os
-from typing import Any, Dict
-
+from typing import Dict
 from pathlib import Path
-
 from dotenv import load_dotenv
 from langchain.agents import create_agent
 from langchain.chat_models import init_chat_model
@@ -16,13 +14,16 @@ from langchain_openai import OpenAIEmbeddings
 
 load_dotenv()
 
-LLM_MODEL = "qwen3:8b"
-EMBEDDINGS_MODEL = "text-embedding-3-small"
-# Always use project-root chroma, regardless of cwd
-CHROMA_DIR = Path(__file__).resolve().parents[1] / "chroma" / "data"
+MODEL_PROVIDER = os.getenv("MODEL_PROVIDER","Ollama")
+LLM_MODEL = os.getenv("LLM_MODEL", "qwen3:8b")
+EMBEDDINGS_MODEL = os.getenv("EMBEDDINGS_MODEL", "text-embedding-3-small")
+COLLECTION_NAME = os.getenv("COLLECTION_NAME", "langchain-docs")
+CHROMA_DIR = Path(__file__).resolve().parents[1] / "chroma" / "data"          
+TOP_K = int(os.getenv("TOP_K", "4"))
+
 
 llm = init_chat_model(
-    model_provider="ollama",
+    model_provider = MODEL_PROVIDER,
     model = LLM_MODEL, 
     temperature = 0) 
 
@@ -30,12 +31,10 @@ embeddings = OpenAIEmbeddings(
     model = EMBEDDINGS_MODEL
     )
 
-
-
 vectorstore = Chroma(
-    collection_name="langchain-docs",
-    embedding_function=embeddings,
-    persist_directory=str(CHROMA_DIR),
+    collection_name = COLLECTION_NAME,
+    embedding_function = embeddings,
+    persist_directory = str(CHROMA_DIR),
 )
 
 
@@ -45,7 +44,7 @@ def retrieve_context(query: str):
     """Retrieve relevant documentation to hepl ansewer user queries about LangChain"""
     
     # Retrieve 4 most similar documents
-    retrieved_docs = vectorstore.as_retriever(search_kwargs={"k": 4}).invoke(query)
+    retrieved_docs = vectorstore.as_retriever(search_kwargs={"k": TOP_K}).invoke(query)
     
     # Serializing for the model
     serialized = "\n\n".join(
